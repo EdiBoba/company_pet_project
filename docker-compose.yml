@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:14.2
+    command: "postgres -c 'max_connections=100' -c 'client_min_messages=warning'"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "company"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
