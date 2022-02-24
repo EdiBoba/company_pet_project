@@ -13,5 +13,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  migrations:
+    build:
+      context: .
+      dockerfile: migrations.Dockerfile
+      target: final
+    image: alembic
+    entrypoint: ["alembic"]
+    command: ["upgrade", "head"]
+    depends_on:
+      - postgres
+
 volumes:
   pgdata:
