@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from ..base import Base
 
@@ -24,6 +25,10 @@ class Worker(Base):
     birth_date = sa.Column(sa.DateTime, nullable=False)
     created_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
+
+    department = relationship("Department", back_populates="workers")
+    position = relationship("Position")
+    skills = relationship("Skill", secondary="worker_skills", back_populates="workers")
 
     def __repr__(self):
         return f"<Worker id={self.id}>"

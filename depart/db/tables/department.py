@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from ..base import Base
 
@@ -11,6 +12,8 @@ class Department(Base):
     name = sa.Column(sa.String, nullable=False)
     created_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
+
+    workers = relationship("Worker", back_populates="department")
 
     def __repr__(self):
         return f"<Department id={self.id}>"
