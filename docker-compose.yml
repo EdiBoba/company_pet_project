@@ -17,12 +17,19 @@ services:
     build:
       context: .
       dockerfile: migrations.Dockerfile
-      target: final
-    image: alembic
     entrypoint: ["alembic"]
     command: ["upgrade", "head"]
     depends_on:
       - postgres
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - migrations
 
 volumes:
   pgdata:

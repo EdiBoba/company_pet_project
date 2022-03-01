@@ -1,11 +1,15 @@
 FROM python:3.10.2
 
-RUN apt-get update && apt-get upgrade -y
-RUN pip install --upgrade pip
+EXPOSE 8000
 
 WORKDIR /app
 
-ADD . /app
+RUN apt-get update -y && apt-get upgrade -y
 
-ENTRYPOINT ["python"]
-CMD ["main.py"]
+COPY requirements.txt /app/requirements.txt
+
+RUN pip install -r requirements.txt
+
+COPY . /app
+
+ENTRYPOINT ["python", "main.py"]
