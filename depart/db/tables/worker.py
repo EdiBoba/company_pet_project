@@ -10,8 +10,8 @@ class Worker(Base):
     __tablename__ = "workers"
 
     id = sa.Column(UUID(as_uuid=True), primary_key=True, server_default=sa.func.uuid_generate_v1())
-    surname = sa.Column(sa.String, nullable=True)
-    name = sa.Column(sa.String, nullable=True)
+    surname = sa.Column(sa.String, nullable=False)
+    name = sa.Column(sa.String, nullable=False)
     department_id = sa.Column(
         UUID(as_uuid=True),
         ForeignKey("departments.id", onupdate="CASCADE", ondelete="CASCADE"),

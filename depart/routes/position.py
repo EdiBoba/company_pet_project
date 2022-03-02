@@ -9,7 +9,7 @@ from depart.db import tables
 router = APIRouter(tags=["positions"])
 
 
-@router.get("/positions")
+@router.get("/positions", response_model=list[dto.Position])
 def fetch_positions(
     db: Session = Depends(db_session)
 ) -> list[dto.Position]:
@@ -76,3 +76,17 @@ def update_position(
     db.delete(position)
     db.commit()
     return position_data
+
+
+@router.get("/positions/{position_id}/workers", response_model=list[dto.Worker])
+def fetch_position_workers(
+    position_id: UUID,
+    db: Session = Depends(db_session),
+) -> list[dto.Worker]:
+    result = (
+        db.query(tables.Worker)
+        .join(tables.Position)
+        .filter_by(id=position_id)
+        .all()
+    )
+    return result
