@@ -4,8 +4,8 @@ import uvicorn
 from depart.routes import position
 
 
-def prepare_application():
-    app = FastAPI()
+def prepare_application(debug=False):
+    app = FastAPI(debug=debug)
     app.include_router(position.router)
     return app
 

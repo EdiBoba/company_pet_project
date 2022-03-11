@@ -10,9 +10,14 @@ pip install -r requirements.txt
 pip install -r requirements.migrations.txt
 ```
 
-Run database:
+Run environment:
 ```shell
 docker compose up -d
+```
+
+Rebuild service in compose:
+```shell
+docker compose up -d --no-deps --build api
 ```
 
 Apply migrations:
